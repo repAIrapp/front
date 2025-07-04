@@ -81,27 +81,50 @@ export function SubscriptionSection() {
     },
   ]
 
-  const handleUpgrade = async () => {
-    if (selectedPlan === "basic" && currentPlan === "basic") {
-      toast({
-        title: "Plan Basic sélectionné",
-        description: "Vous êtes déjà sur le plan gratuit RepAIr",
-      })
-      return
-    }
+  // const handleUpgrade = async () => {
+  //   if (selectedPlan === "basic" && currentPlan === "basic") {
+  //     toast({
+  //       title: "Plan Basic sélectionné",
+  //       description: "Vous êtes déjà sur le plan gratuit RepAIr",
+  //     })
+  //     return
+  //   }
 
-    setIsLoading(true)
-    try {
-      window.location.href = "/api/create-stripe-session"
-    } catch (error) {
-      toast({
-        title: "Erreur",
-        description: "Impossible de traiter la demande d'abonnement",
-        variant: "destructive",
-      })
-      setIsLoading(false)
-    }
+  //   setIsLoading(true)
+  //   try {
+  //     window.location.href = "/api/create-stripe-session"
+  //   } catch (error) {
+  //     toast({
+  //       title: "Erreur",
+  //       description: "Impossible de traiter la demande d'abonnement",
+  //       variant: "destructive",
+  //     })
+  //     setIsLoading(false)
+  //   }
+  // }
+   const handleUpgrade = async () => {
+  if (selectedPlan === "basic" && currentPlan === "basic") {
+    toast({
+      title: "Plan Basic sélectionné",
+      description: "Vous êtes déjà sur le plan gratuit RepAIr",
+    })
+    return
   }
+
+  setIsLoading(true)
+  try {
+    window.location.href = "/api/create-stripe-session"
+  } catch (error) {
+    console.error("Erreur de redirection paiement :", error)
+    toast({
+      title: "Erreur",
+      description: "Impossible de traiter la demande d'abonnement",
+      variant: "destructive",
+    })
+    setIsLoading(false)
+  }
+}
+
   const handlePlanChange = (value: string) => {
   if (value === "basic" || value === "premium") {
     setSelectedPlan(value)
