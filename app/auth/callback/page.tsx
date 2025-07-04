@@ -19,9 +19,17 @@ export default function AuthCallbackPage() {
         lastName: payload.last_name,
       }
 
-      localStorage.setItem("repair_token", token)
-      localStorage.setItem("repair_user", JSON.stringify(user))
-      router.push("/") // ou tableau de bord
+      // localStorage.setItem("repair_token", token)
+      // localStorage.setItem("repair_user", JSON.stringify(user))
+      // router.push("/") 
+      document.cookie = `repair_token=${token}; path=/; secure; samesite=strict`
+document.cookie = `repair_user=${encodeURIComponent(JSON.stringify(user))}; path=/; secure; samesite=strict`
+
+localStorage.setItem("repair_token", token)
+localStorage.setItem("repair_user", JSON.stringify(user))
+
+router.push("/")
+
     } else {
       router.push("/auth/signin")
     }
