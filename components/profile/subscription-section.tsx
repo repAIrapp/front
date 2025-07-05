@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import {
   Card,
   CardContent,
@@ -42,10 +42,19 @@ interface SubscriptionPlan {
 export function SubscriptionSection() {
   const { user } = useAuth()
   const { toast } = useToast()
-  const [selectedPlan, setSelectedPlan] = useState<PlanType>("basic")
+  // const [selectedPlan, setSelectedPlan] = useState<PlanType>("basic")
+  const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null)
+
+useEffect(() => {
+  if (user?.subscription?.type) {
+    setSelectedPlan(user.subscription.type)
+  }
+}, [user])
+
   const [isLoading, setIsLoading] = useState(false)
 
-  const currentPlan: PlanType = "basic" 
+  // const currentPlan: PlanType = "basic" 
+  const currentPlan: PlanType = user?.subscription?.type || "basic"
 
   const plans: SubscriptionPlan[] = [
     {
@@ -148,7 +157,7 @@ export function SubscriptionSection() {
 
       <CardContent className="space-y-6">
         <RadioGroup
-          value={selectedPlan}
+           value={selectedPlan || "basic"}
           // onValueChange={(value) => setSelectedPlan(value as PlanType)}
           onValueChange={handlePlanChange}
           className="space-y-4"

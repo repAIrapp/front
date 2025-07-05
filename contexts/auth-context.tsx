@@ -9,6 +9,12 @@ interface User {
   email: string
   firstName: string
   lastName: string
+  subscription?: {
+    type: "basic" | "premium"
+    status: string
+    date_start?: string
+    date_end?: string
+  }
 }
 
 interface AuthContextType {
@@ -20,7 +26,7 @@ interface AuthContextType {
   logout: () => void
   loginWithGoogle: () => void
   loginWithFacebook: () => void
-  signupWithGoogle: () => void 
+  signupWithGoogle: () => void
 }
 
 interface SignupData {
@@ -41,10 +47,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     checkAuth()
   }, [])
-const redirectToGoogleOAuth = (intent: 'login' | 'signup') => {
-  const baseURL = "http://localhost:3004/auth"; // ton backend auth service
-  window.location.href = `${baseURL}?intent=${intent}`;
-};
+  const redirectToGoogleOAuth = (intent: 'login' | 'signup') => {
+    const baseURL = "http://localhost:3004/auth"; // ton backend auth service
+    window.location.href = `${baseURL}?intent=${intent}`;
+  };
 
   const checkAuth = async () => {
     try {
@@ -61,6 +67,46 @@ const redirectToGoogleOAuth = (intent: 'login' | 'signup') => {
       setIsLoading(false)
     }
   }
+  const refreshUser = async () => {
+  const token = localStorage.getItem("repair_token")
+  const userData = localStorage.getItem("repair_user")
+  if (!token || !userData) return
+
+  const parsedUser = JSON.parse(userData)
+  const res = await fetch(`http://localhost:3001/api/users/${parsedUser.id}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+
+  const updatedUser = await res.json()
+  localStorage.setItem("repair_user", JSON.stringify(updatedUser))
+  setUser(updatedUser)
+}
+
+//   const checkAuth = async () => {
+//   try {
+//     const token = localStorage.getItem("repair_token")
+//     const userData = localStorage.getItem("repair_user")
+
+//     if (token && userData) {
+//       const parsedUser = JSON.parse(userData)
+
+//       // 🔁 Récupère les infos à jour
+//       const res = await fetch(`http://localhost:3001/api/users/${parsedUser.id}`, {
+//         headers: { Authorization: `Bearer ${token}` }
+//       })
+
+//       const freshUser = await res.json()
+
+//       // ✅ Met à jour le contexte et le localStorage
+//       localStorage.setItem("repair_user", JSON.stringify(freshUser))
+//       setUser(freshUser)
+//     }
+//   } catch (err) {
+//     console.error("Erreur checkAuth:", err)
+//   } finally {
+//     setIsLoading(false)
+//   }
+// }
 
   // const login = async (email: string, password: string) => {
   //   setIsLoading(true)
@@ -90,45 +136,45 @@ const redirectToGoogleOAuth = (intent: 'login' | 'signup') => {
   //     setIsLoading(false)
   //   }
   // }
- const login = async (email: string, password: string) => {
-  setIsLoading(true)
-  try {
-    const response = await fetch("http://localhost:3001/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        password,
-        authType: "local",
-      }),
-    })
+  const login = async (email: string, password: string) => {
+    setIsLoading(true)
+    try {
+      const response = await fetch("http://localhost:3001/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          authType: "local",
+        }),
+      })
 
-    const data = await response.json()
-    if (!response.ok) throw new Error(data.error || "Erreur de connexion")
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || "Erreur de connexion")
 
-    const token = data.token
-    const payload = JSON.parse(atob(token.split(".")[1]))
+      const token = data.token
+      const payload = JSON.parse(atob(token.split(".")[1]))
 
-    const user: User = {
-      id: payload.id,
-      email: payload.email,
-      firstName: payload.first_name,
-      lastName: payload.last_name,
+      const user: User = {
+        id: payload.id,
+        email: payload.email,
+        firstName: payload.first_name,
+        lastName: payload.last_name,
+      }
+    console.log("🧾 Payload JWT :", payload)
+      localStorage.setItem("repair_token", token)
+      localStorage.setItem("repair_user", JSON.stringify(user))
+      setUser(user)
+
+      const redirectTo = localStorage.getItem("repair_redirect") || "/"
+      localStorage.removeItem("repair_redirect")
+      router.push(redirectTo)
+    } catch (error: any) {
+      throw new Error(error.message || "Erreur de connexion")
+    } finally {
+      setIsLoading(false)
     }
-
-    localStorage.setItem("repair_token", token)
-    localStorage.setItem("repair_user", JSON.stringify(user))
-    setUser(user)
-
-    const redirectTo = localStorage.getItem("repair_redirect") || "/"
-    localStorage.removeItem("repair_redirect")
-    router.push(redirectTo)
-  } catch (error: any) {
-    throw new Error(error.message || "Erreur de connexion")
-  } finally {
-    setIsLoading(false)
   }
-}
 
   // const signup = async (userData: SignupData) => {
   //   setIsLoading(true)
@@ -156,45 +202,45 @@ const redirectToGoogleOAuth = (intent: 'login' | 'signup') => {
   //     setIsLoading(false)
   //   }
   // }
-const signup = async (userData: SignupData) => {
-  setIsLoading(true)
-  try {
-    const response = await fetch("http://localhost:3001/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: userData.email,
-        password: userData.password,
-        first_name: userData.firstName,
-        last_name: userData.lastName,
-        authType: "local",
-      }),
-    })
+  const signup = async (userData: SignupData) => {
+    setIsLoading(true)
+    try {
+      const response = await fetch("http://localhost:3001/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: userData.email,
+          password: userData.password,
+          first_name: userData.firstName,
+          last_name: userData.lastName,
+          authType: "local",
+        }),
+      })
 
-    const data = await response.json()
-    if (!response.ok) throw new Error(data.error || "Erreur d'inscription")
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || "Erreur d'inscription")
 
-    const token = data.token
-    const userPayload = JSON.parse(atob(token.split(".")[1]))
+      const token = data.token
+      const userPayload = JSON.parse(atob(token.split(".")[1]))
 
-    const user: User = {
-      id: userPayload.id,
-      email: userPayload.email,
-      firstName: userPayload.first_name,
-      lastName: userPayload.last_name,
+      const user: User = {
+        id: userPayload.id,
+        email: userPayload.email,
+        firstName: userPayload.first_name,
+        lastName: userPayload.last_name,
+      }
+
+      localStorage.setItem("repair_token", token)
+      localStorage.setItem("repair_user", JSON.stringify(user))
+      setUser(user)
+
+      router.push("/")
+    } catch (error: any) {
+      throw new Error(error.message || "Erreur lors de la création du compte")
+    } finally {
+      setIsLoading(false)
     }
-
-    localStorage.setItem("repair_token", token)
-    localStorage.setItem("repair_user", JSON.stringify(user))
-    setUser(user)
-
-    router.push("/")
-  } catch (error: any) {
-    throw new Error(error.message || "Erreur lors de la création du compte")
-  } finally {
-    setIsLoading(false)
   }
-}
 
   const logout = () => {
     localStorage.removeItem("repair_token")
@@ -229,19 +275,19 @@ const signup = async (userData: SignupData) => {
   //     setIsLoading(false)
   //   }
   // }
-// const loginWithGoogle = () => redirectToGoogleOAuth("login");
-// const signupWithGoogle = () => redirectToGoogleOAuth("signup");
-const loginWithGoogle = async () => {
-  window.location.href = "http://localhost:3004/auth?intent=login";
-};
+  // const loginWithGoogle = () => redirectToGoogleOAuth("login");
+  // const signupWithGoogle = () => redirectToGoogleOAuth("signup");
+  const loginWithGoogle = async () => {
+    window.location.href = "http://localhost:3004/auth?intent=login";
+  };
 
-const signupWithGoogle = async () => {
-  window.location.href = "http://localhost:3004/auth?intent=signup";
-};
+  const signupWithGoogle = async () => {
+    window.location.href = "http://localhost:3004/auth?intent=signup";
+  };
 
-const loginWithFacebook = async () => {
-  window.location.href = "http://localhost:3004/auth/facebook";
-};
+  const loginWithFacebook = async () => {
+    window.location.href = "http://localhost:3004/auth/facebook";
+  };
 
 
   // const loginWithFacebook = async () => {
@@ -270,7 +316,7 @@ const loginWithFacebook = async () => {
   //     setIsLoading(false)
   //   }
   // }
-  
+
 
 
   const value = {
@@ -283,6 +329,7 @@ const loginWithFacebook = async () => {
     loginWithGoogle,
     signupWithGoogle,
     loginWithFacebook,
+    refreshUser,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
