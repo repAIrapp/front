@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useAuth } from "@/contexts/auth-context"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -28,18 +29,32 @@ export function SignUpForm() {
     })
   }
 
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   setIsLoading(true)
+
+  //   // Simulation d'inscription
+  //   console.log("Inscription RepAIr:", formData)
+
+  //   setTimeout(() => {
+  //     setIsLoading(false)
+  //     alert("Compte RepAIr créé avec succès !")
+  //   }, 2000)
+  // }
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+  e.preventDefault()
+  setIsLoading(true)
 
-    // Simulation d'inscription
-    console.log("Inscription RepAIr:", formData)
-
-    setTimeout(() => {
-      setIsLoading(false)
-      alert("Compte RepAIr créé avec succès !")
-    }, 2000)
+  try {
+    await signup(formData)
+  } catch (err: any) {
+    alert(err.message || "Erreur lors de l’inscription")
+  } finally {
+    setIsLoading(false)
   }
+}
+
+ const { signup } = useAuth()
 
   return (
     <div className="space-y-6">

@@ -234,7 +234,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem("repair_user", JSON.stringify(user))
       setUser(user)
 
-      router.push("/")
+      router.push("/auth/signin")
     } catch (error: any) {
       throw new Error(error.message || "Erreur lors de la création du compte")
     } finally {
