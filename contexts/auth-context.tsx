@@ -27,6 +27,7 @@ interface AuthContextType {
   loginWithGoogle: () => void
   loginWithFacebook: () => void
   signupWithGoogle: () => void
+  refreshUser: () => Promise<void>
 }
 
 interface SignupData {
@@ -82,60 +83,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   setUser(updatedUser)
 }
 
-//   const checkAuth = async () => {
-//   try {
-//     const token = localStorage.getItem("repair_token")
-//     const userData = localStorage.getItem("repair_user")
-
-//     if (token && userData) {
-//       const parsedUser = JSON.parse(userData)
-
-//       // 🔁 Récupère les infos à jour
-//       const res = await fetch(`http://localhost:3001/api/users/${parsedUser.id}`, {
-//         headers: { Authorization: `Bearer ${token}` }
-//       })
-
-//       const freshUser = await res.json()
-
-//       // ✅ Met à jour le contexte et le localStorage
-//       localStorage.setItem("repair_user", JSON.stringify(freshUser))
-//       setUser(freshUser)
-//     }
-//   } catch (err) {
-//     console.error("Erreur checkAuth:", err)
-//   } finally {
-//     setIsLoading(false)
-//   }
-// }
-
-  // const login = async (email: string, password: string) => {
-  //   setIsLoading(true)
-  //   try {
-  //     // Simulation d'authentification - remplacer par votre API
-  //     await new Promise((resolve) => setTimeout(resolve, 1000))
-
-  //     const mockUser: User = {
-  //       id: "1",
-  //       email,
-  //       firstName: "Utilisateur",
-  //       lastName: "RepAIr",
-  //     }
-
-  //     // Stocker les données utilisateur
-  //     localStorage.setItem("repair_token", "mock_token_123")
-  //     localStorage.setItem("repair_user", JSON.stringify(mockUser))
-  //     setUser(mockUser)
-
-  //     // Redirection après connexion
-  //     const redirectTo = localStorage.getItem("repair_redirect") || "/"
-  //     localStorage.removeItem("repair_redirect")
-  //     router.push(redirectTo)
-  //   } catch (error) {
-  //     throw new Error("Erreur de connexion RepAIr")
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }
   const login = async (email: string, password: string) => {
     setIsLoading(true)
     try {
@@ -176,32 +123,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  // const signup = async (userData: SignupData) => {
-  //   setIsLoading(true)
-  //   try {
-  //     // Simulation d'inscription - remplacer par votre API
-  //     await new Promise((resolve) => setTimeout(resolve, 1000))
-
-  //     const newUser: User = {
-  //       id: Date.now().toString(),
-  //       email: userData.email,
-  //       firstName: userData.firstName,
-  //       lastName: userData.lastName,
-  //     }
-
-  //     // Stocker les données utilisateur
-  //     localStorage.setItem("repair_token", "mock_token_123")
-  //     localStorage.setItem("repair_user", JSON.stringify(newUser))
-  //     setUser(newUser)
-
-  //     // Redirection après inscription
-  //     router.push("/")
-  //   } catch (error) {
-  //     throw new Error("Erreur lors de la création du compte RepAIr")
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }
+ 
   const signup = async (userData: SignupData) => {
     setIsLoading(true)
     try {
@@ -249,34 +171,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push("/auth/signin")
   }
 
-  // const loginWithGoogle = async () => {
-  //   setIsLoading(true)
-  //   try {
-  //     // Simulation OAuth Google - remplacer par votre implémentation
-  //     await new Promise((resolve) => setTimeout(resolve, 1000))
-
-  //     const mockUser: User = {
-  //       id: "google_123",
-  //       email: "user@gmail.com",
-  //       firstName: "Utilisateur",
-  //       lastName: "Google",
-  //     }
-
-  //     localStorage.setItem("repair_token", "google_token_123")
-  //     localStorage.setItem("repair_user", JSON.stringify(mockUser))
-  //     setUser(mockUser)
-
-  //     const redirectTo = localStorage.getItem("repair_redirect") || "/"
-  //     localStorage.removeItem("repair_redirect")
-  //     router.push(redirectTo)
-  //   } catch (error) {
-  //     throw new Error("Erreur de connexion Google")
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }
-  // const loginWithGoogle = () => redirectToGoogleOAuth("login");
-  // const signupWithGoogle = () => redirectToGoogleOAuth("signup");
   const loginWithGoogle = async () => {
     window.location.href = "http://localhost:3004/auth?intent=login";
   };
@@ -288,35 +182,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const loginWithFacebook = async () => {
     window.location.href = "http://localhost:3004/auth/facebook";
   };
-
-
-  // const loginWithFacebook = async () => {
-  //   setIsLoading(true)
-  //   try {
-  //     // Simulation OAuth Facebook - remplacer par votre implémentation
-  //     await new Promise((resolve) => setTimeout(resolve, 1000))
-
-  //     const mockUser: User = {
-  //       id: "facebook_123",
-  //       email: "user@facebook.com",
-  //       firstName: "Utilisateur",
-  //       lastName: "Facebook",
-  //     }
-
-  //     localStorage.setItem("repair_token", "facebook_token_123")
-  //     localStorage.setItem("repair_user", JSON.stringify(mockUser))
-  //     setUser(mockUser)
-
-  //     const redirectTo = localStorage.getItem("repair_redirect") || "/"
-  //     localStorage.removeItem("repair_redirect")
-  //     router.push(redirectTo)
-  //   } catch (error) {
-  //     throw new Error("Erreur de connexion Facebook")
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }
-
 
 
   const value = {

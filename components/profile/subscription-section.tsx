@@ -74,7 +74,7 @@ useEffect(() => {
     {
       id: "premium",
       name: "Premium",
-      price: 6.99,
+      price: 5.99,
       period: "mois",
       description: "Débloquez tout le potentiel de RepAIr",
       features: [
@@ -86,7 +86,7 @@ useEffect(() => {
         "Accès anticipé aux nouvelles fonctionnalités",
       ],
       popular: true,
-      current: currentPlan === "basic",
+      current: currentPlan === "premium",
     },
   ]
 

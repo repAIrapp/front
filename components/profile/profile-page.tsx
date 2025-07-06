@@ -25,10 +25,15 @@ export function ProfilePage() {
     email: user?.email || "",
   })
 
+  // const getUserInitials = () => {
+  //   if (!user) return "U"
+  //   return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
+  // }
+
   const getUserInitials = () => {
-    if (!user) return "U"
-    return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
-  }
+  if (!user?.firstName || !user?.lastName) return "U"
+  return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
+}
 
   const handleSave = () => {
     // Ici on sauvegarderait les modifications
