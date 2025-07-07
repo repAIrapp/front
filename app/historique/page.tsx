@@ -1,5 +1,5 @@
 import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
+// import { Footer } from "@/components/footer"
 
 export default function HistoriquePage() {
   return (
@@ -8,7 +8,7 @@ export default function HistoriquePage() {
       <main className="p-8">
         <h1 className="text-2xl font-bold text-center">Historique des réparations</h1>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }
