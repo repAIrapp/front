@@ -92,10 +92,10 @@ export function ProfilePage() {
                     {user?.firstName} {user?.lastName}
                   </h3>
                   <p className="text-gray-600">{user?.email}</p>
-                  <div className="flex items-center space-x-2 mt-2 text-sm text-gray-500">
+                  {/* <div className="flex items-center space-x-2 mt-2 text-sm text-gray-500">
                     <Calendar className="h-4 w-4" />
                     <span>Membre depuis janvier 2024</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
