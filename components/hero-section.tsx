@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Wrench, Recycle, Heart } from "lucide-react"
+import Link from "next/link"
 
 export function HeroSection() {
   return (
@@ -15,13 +16,20 @@ export function HeroSection() {
             RepAIr vous accompagne dans la réparation de vos objets du quotidien grâce à l'intelligence artificielle.
             Ensemble, luttons contre le gaspillage !
           </p>
-          <Button
+          {/* <Button
             size="default"
             className="bg-repair-blue hover:bg-repair-blue/90 text-white px-4 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base md:px-6 md:py-3 md:text-lg"
           >
             Commencer ma réparation RepAIr
-          </Button>
-
+          </Button> */}
+          <Link href="/diagnostic" passHref>
+            <Button
+              size="default"
+              className="bg-repair-blue hover:bg-repair-blue/90 text-white px-4 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base md:px-6 md:py-3 md:text-lg"
+            >
+              Commencer ma réparation RepAIr
+            </Button>
+          </Link>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">

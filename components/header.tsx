@@ -1,53 +1,3 @@
-// import Image from "next/image"
-// import { Button } from "@/components/ui/button"
-// import { Menu } from "lucide-react"
-// import Link from "next/link"
-
-// export function Header() {
-//   return (
-//     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-//       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-//         <div className="flex items-center space-x-2">
-//           <Image src="/logo-repair.png" alt="RepAIr Logo" width={40} height={40} className="h-10 w-10" />
-//           <span className="text-2xl font-bold text-repair-green">RepAIr</span>
-//         </div>
-
-//         <nav className="hidden md:flex items-center space-x-6">
-//           <a href="#accueil" className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors">
-//             Accueil
-//           </a>
-//            <Link href="/diagnostic" className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors">
-//             Diagnostic RepAIr
-//           </Link>
-//           <a
-//             href="#comment-ca-marche"
-//             className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors"
-//           >
-//             Comment ça marche
-//           </a>
-//           <a href="#impact" className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors">
-//             Impact
-//           </a>
-//         </nav>
-
-//         <div className="flex items-center space-x-4">
-//           <div className="hidden sm:flex items-center space-x-2">
-//             <Button variant="ghost" asChild>
-//               <Link href="/auth/signin">Se connecter</Link>
-//             </Button>
-//             <Button className="bg-repair-blue hover:bg-repair-blue/90 text-white" asChild>
-//               <Link href="/auth/signup">S'inscrire</Link>
-//             </Button>
-//           </div>
-//           <Button variant="ghost" size="icon" className="md:hidden">
-//             <Menu className="h-5 w-5" />
-//           </Button>
-//         </div>
-//       </div>
-//     </header>
-//   )
-// }
-
 "use client"
 
 import Image from "next/image"
@@ -64,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { LogOut, User,Crown } from "lucide-react"
+import { LogOut, User, Crown } from "lucide-react"
 
 
 export function Header() {
@@ -75,9 +25,9 @@ export function Header() {
   //   return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
   // }
   const getUserInitials = () => {
-  if (!user || !user.firstName || !user.lastName) return "U"
-  return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
-}
+    if (!user || !user.firstName || !user.lastName) return "U"
+    return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
@@ -88,23 +38,23 @@ export function Header() {
         </div>
 
         <nav className="hidden md:flex items-center space-x-6">
-          <a href="#accueil" className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors">
+          <Link href="/" className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors">
             Accueil
-          </a>
-          <a href="#diagnostic" className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors">
+          </Link>
+          <Link href="/diagnostic" className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors">
             Diagnostic RepAIr
-          </a>
+          </Link>
           <a
             href="#comment-ca-marche"
             className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors"
           >
             Comment ça marche
           </a>
-          <a href="#impact" className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors">
+          {/* <a href="#impact" className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors">
             Impact
-          </a>
+          </a> */}
         </nav>
-      <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4">
           {isAuthenticated && user ? (
             <div className="hidden sm:flex items-center space-x-2">
               <DropdownMenu>
@@ -129,8 +79,8 @@ export function Header() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                     <Link href="/profile">
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Profil RepAIr</span>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profil RepAIr</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
