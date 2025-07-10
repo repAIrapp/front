@@ -25,8 +25,6 @@ export default function EmailVerificationPage() {
         if (!res.ok) throw new Error("Échec de la vérification")
 
         setStatus("success")
-
-        // ✅ Redirection après succès (optionnelle)
         setTimeout(() => {
           router.push("/auth/signin")
         }, 3000)
@@ -44,13 +42,13 @@ export default function EmailVerificationPage() {
       {status === "loading" && <p className="text-xl">Vérification de votre email en cours...</p>}
       {status === "success" && (
         <>
-          <h1 className="text-2xl font-bold text-green-600">Email vérifié avec succès ✅</h1>
+          <h1 className="text-2xl font-bold text-green-600">Email vérifié avec succès</h1>
           <p className="mt-4 text-gray-700">Redirection vers la connexion...</p>
         </>
       )}
       {status === "error" && (
         <>
-          <h1 className="text-2xl font-bold text-red-600">Erreur de vérification ❌</h1>
+          <h1 className="text-2xl font-bold text-red-600">Erreur de vérification </h1>
           <p className="mt-4 text-gray-700">Le lien est peut-être invalide ou expiré.</p>
         </>
       )}

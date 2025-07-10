@@ -19,8 +19,6 @@ export async function fetchUserDiagnostics(userId: string, token: string): Promi
     }
 
     const raw = await res.json()
-
-    // ⚙️ Adaptation des données au format DiagnosticHistory
     const mapped = raw.map((item: any) => ({
       id: item._id,
       objectType: item.objectType || "Inconnu",
@@ -29,7 +27,7 @@ export async function fetchUserDiagnostics(userId: string, token: string): Promi
       date: item.createdAt,
       problem: item.text || "Problème non spécifié",
       status: item.status || "completed",
-      confidence: item.confidence || Math.floor(Math.random() * 20) + 80, // Ex: fake si manquant
+      confidence: item.confidence || Math.floor(Math.random() * 20) + 80,
       estimatedCost: item.estimatedCost,
       actualCost: item.actualCost,
       repairTime: item.repairTime,

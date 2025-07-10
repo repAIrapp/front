@@ -25,12 +25,9 @@ export async function fetchUserDiagnostics(userId: string): Promise<DiagnosticHi
       Authorization: `Bearer ${token}`,
     },
   })
-
-  console.log("💡 Réponse API:", response.status, response.statusText)
-
   if (!response.ok) {
     const errorText = await response.text()
-    console.error("❌ Erreur API:", errorText)
+    console.error("Erreur API:", errorText)
     throw new Error("Erreur lors de la récupération des diagnostics")
   }
 

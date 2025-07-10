@@ -35,7 +35,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true, // <-- tu peux le garder si nécessaire
+    unoptimized: true, 
     remotePatterns: [
       {
         protocol: 'http',

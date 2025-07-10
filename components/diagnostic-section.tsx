@@ -12,7 +12,6 @@ export function DiagnosticSection() {
   const [analysisStep, setAnalysisStep] = useState<"capture" | "analyzing" | "results">("capture")
 
   const handleImageCapture = async (imageUrl: string, file: File) => {
-    console.log("📷 Image capturée :", { imageUrl, file })
     setAnalysisStep("analyzing")
 
     try {
@@ -26,7 +25,6 @@ export function DiagnosticSection() {
         throw new Error("Utilisateur non authentifié")
       }
 
-      // 🔹 1. Créer un nouvel objet réparé pour l'utilisateur
       const objectRes = await fetch("http://localhost:3001/api/objects", {
         method: "POST",
         headers: {
@@ -43,15 +41,13 @@ export function DiagnosticSection() {
       if (!objectRes.ok) throw new Error("Erreur création objet réparé")
       const createdObject = await objectRes.json()
       const objectrepairedId = createdObject._id
-      console.log("📦 Objet créé :", objectrepairedId)
 
-      // 🔹 2. Envoyer l’image à l’API IA
       const formData = new FormData()
       formData.append("photo", file)
       formData.append("userId", user.id)
       formData.append("objectrepairedId", objectrepairedId)
 //       for (const pair of formData.entries()) {
-//   console.log(`🧾 FormData => ${pair[0]}: ${pair[1]}`);
+//   console.log(`FormData => ${pair[0]}: ${pair[1]}`);
 // }
 
 
@@ -66,9 +62,6 @@ export function DiagnosticSection() {
       if (!response.ok) throw new Error("Échec de l'analyse")
 
       const data = await response.json()
-      console.log("✅ Résultat IA reçu :", data)
-
-      // 🔹 3. Sauvegarder localement les résultats pour affichage
       localStorage.setItem(
         "repair_last_analysis",
         JSON.stringify({
@@ -79,11 +72,11 @@ export function DiagnosticSection() {
 
       setAnalysisStep("results")
     } catch (error: any) {
-  console.error("❌ Erreur d'analyse complète :", error)
+  console.error("Erreur d'analyse complète :", error)
 
   if (error instanceof Response) {
     const errorData = await error.json()
-    console.error("🛑 Réponse backend :", errorData)
+    console.error("Réponse backend :", errorData)
   }
 
   alert("Erreur lors de l'analyse IA : " + (error.message || ""))

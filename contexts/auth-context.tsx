@@ -49,13 +49,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     checkAuth()
   }, [])
   const redirectToGoogleOAuth = (intent: 'login' | 'signup') => {
-    const baseURL = "http://localhost:3004/auth"; // ton backend auth service
+    const baseURL = "http://localhost:3004/auth"; 
     window.location.href = `${baseURL}?intent=${intent}`;
   };
 
   const checkAuth = async () => {
     try {
-      // Simulation - remplacer par votre logique d'authentification
       const token = localStorage.getItem("repair_token")
       const userData = localStorage.getItem("repair_user")
 
@@ -108,7 +107,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         firstName: payload.first_name,
         lastName: payload.last_name,
       }
-    console.log("🧾 Payload JWT :", payload)
       localStorage.setItem("repair_token", token)
       localStorage.setItem("repair_user", JSON.stringify(user))
       setUser(user)

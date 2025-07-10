@@ -82,7 +82,6 @@ export function AppSidebar() {
   const { setOpenMobile } = useSidebar()
   const isMobile = useIsMobile()
 
-  // ✅ Ne pas afficher du tout si pas mobile
   if (!isMobile) return null
 
   const handleLinkClick = () => {
