@@ -58,7 +58,7 @@
 
 
 
-// app/verify/page.tsx
+
 import { Suspense } from "react"
 import EmailVerificationContent from "./Emailverificationcontent"
 
