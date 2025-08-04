@@ -39,7 +39,7 @@ export function HowItWorksSection() {
             Comment fonctionne <span className="text-repair-green">RepAIr</span> ?
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            RepAIr simplifie la réparation en 4 étapes simples, guidées par l'intelligence artificielle
+            RepAIr simplifie la réparation en 4 étapes simples, guidées par l&apos;intelligence artificielle
           </p>
         </div>
 

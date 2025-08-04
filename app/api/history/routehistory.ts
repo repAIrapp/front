@@ -1,6 +1,20 @@
 "use client"
 
 import { DiagnosticHistory } from "@/components/history/history-page"
+interface RawDiagnostic {
+  _id: string
+  objectType?: string
+  objectName?: string
+  imageUrl?: string
+  createdAt: string
+  text?: string
+  status?: string
+  confidence?: number
+  estimatedCost?: number
+  actualCost?: number
+  repairTime?: string
+}
+
 
 export async function fetchUserDiagnostics(userId: string, token: string): Promise<DiagnosticHistory[]> {
   try {
@@ -19,7 +33,7 @@ export async function fetchUserDiagnostics(userId: string, token: string): Promi
     }
 
     const raw = await res.json()
-    const mapped = raw.map((item: any) => ({
+    const mapped = raw.map((item: RawDiagnostic) => ({
       id: item._id,
       objectType: item.objectType || "Inconnu",
       objectName: item.objectName || "Objet réparé",

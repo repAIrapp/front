@@ -39,7 +39,7 @@ export function ImpactSection() {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            L'impact de <span className="text-repair-green">RepAIr</span>
+            L&apos;impact de <span className="text-repair-green">RepAIr</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             RepAIr transforme notre rapport aux objets et contribue à un avenir plus durable

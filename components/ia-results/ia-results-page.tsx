@@ -19,9 +19,21 @@ import {
   Wrench,
 } from "lucide-react"
 
+interface IAResultData {
+  imageUrl: string
+  objet_detecte: string
+  analyse: string
+  solution: string
+  videos?: {
+    thumbnail: string
+    title: string
+    url: string
+  }[]
+}
+
 export function IAResultsPage() {
   const [imageError, setImageError] = useState(false)
-  const [data, setData] = useState<any | null>(null)
+  const [data, setData] = useState<IAResultData | null>(null)
 
   useEffect(() => {
     const last = localStorage.getItem("repair_last_analysis")
@@ -166,7 +178,7 @@ export function IAResultsPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {videos.map((video: any, index: number) => (
+              {videos.map((video, index) => (
                 <div
                   key={index}
                   className="bg-white/70 p-4 rounded-xl border border-purple-100 hover:shadow-md transition-shadow"
@@ -208,7 +220,7 @@ export function IAResultsPage() {
           <div className="bg-white/60 p-6 rounded-2xl border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">Prêt pour un nouveau diagnostic ?</h3>
             <p className="text-gray-600 mb-4">
-              RepAIr peut analyser d'autres objets et vous proposer des solutions personnalisées
+              RepAIr peut analyser d&apos;autres objets et vous proposer des solutions personnalisées
             </p>
             <Button
               size="lg"

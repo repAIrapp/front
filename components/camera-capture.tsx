@@ -61,7 +61,7 @@ export function CameraCapture({ onImageCapture }: CameraCaptureProps) {
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Scanner votre objet</h3>
               <p className="text-sm text-gray-600 mb-4">
-                RepAIr analysera l'image pour identifier le problème
+                RepAIr analysera l&apos;image pour identifier le problème
               </p>
             </div>
 

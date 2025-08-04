@@ -71,7 +71,7 @@ export function DiagnosticSection() {
       )
 
       setAnalysisStep("results")
-    } catch (error: any) {
+} catch (error: unknown) {
   console.error("Erreur d'analyse complète :", error)
 
   if (error instanceof Response) {
@@ -79,7 +79,12 @@ export function DiagnosticSection() {
     console.error("Réponse backend :", errorData)
   }
 
-  alert("Erreur lors de l'analyse IA : " + (error.message || ""))
+  if (error instanceof Error) {
+    alert("Erreur lors de l'analyse IA : " + error.message)
+  } else {
+    alert("Erreur lors de l'analyse IA")
+  }
+
   setAnalysisStep("capture")
 }
 
@@ -97,7 +102,7 @@ export function DiagnosticSection() {
             Diagnostic <span className="text-repair-green">RepAIr</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Photographiez votre objet défaillant et laissez RepAIr identifier le problème grâce à l'intelligence
+            Photographiez votre objet défaillant et laissez RepAIr identifier le problème grâce à l&apos;intelligence
             artificielle
           </p>
         </div>
@@ -113,17 +118,17 @@ export function DiagnosticSection() {
                 <CardHeader>
                   <CardTitle className="flex items-center text-repair-green">
                     <Scan className="h-5 w-5 mr-2" />
-                    Prêt pour l'analyse RepAIr
+                    Prêt pour l&apos;analyse RepAIr
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600 mb-4">
-                    Prenez une photo claire de votre objet défaillant. RepAIr analysera automatiquement l'image pour :
+                    Prenez une photo claire de votre objet défaillant. RepAIr analysera automatiquement l&apos;image pour :
                   </p>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-repair-green rounded-full mr-3"></div>
-                      Identifier le type d'objet
+                      Identifier le type d&apos;objet
                     </li>
                     <li className="flex items-center">
                       <div className="w-2 h-2 bg-repair-green rounded-full mr-3"></div>
@@ -156,7 +161,7 @@ export function DiagnosticSection() {
                     </Badge>
                   </div>
                   <p className="text-gray-600 text-sm">
-                    L'intelligence artificielle RepAIr examine votre image pour identifier le problème et vous proposer
+                    L&apos;intelligence artificielle RepAIr examine votre image pour identifier le problème et vous proposer
                     les meilleures solutions de réparation.
                   </p>
                 </CardContent>

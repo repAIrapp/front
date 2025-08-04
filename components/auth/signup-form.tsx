@@ -47,9 +47,14 @@ export function SignUpForm() {
 
   try {
     await signup(formData)
-  } catch (err: any) {
-    alert(err.message || "Erreur lors de l’inscription")
-  } finally {
+  } catch (err: unknown) {
+  if (err instanceof Error) {
+    alert(err.message)
+  } else {
+    alert("Erreur lors de l’inscription")
+  }
+}
+finally {
     setIsLoading(false)
   }
 }

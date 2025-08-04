@@ -109,7 +109,7 @@ export function Header() {
                 <Link href="/auth/signin">Se connecter</Link>
               </Button>
               <Button className="bg-repair-blue hover:bg-repair-blue/90 text-white" asChild>
-                <Link href="/auth/signup">S'inscrire</Link>
+                <Link href="/auth/signup">S&apos;inscrire</Link>
               </Button>
             </div>
           )}
