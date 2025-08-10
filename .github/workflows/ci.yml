@@ -19,11 +19,17 @@ jobs:
       with:
         node-version: 18
 
-    - name: Install dependencies
-      run: npm install
+    - name: Install dependencies (with devDeps)
+      run: npm ci
+      env:
+        NODE_ENV: development
 
     - name: Lint code
       run: npm run lint
+
+    - name: Check jest install
+      run: npm ls jest || true
+
 
     - name: Run unit tests
       run: npm run test -- --ci --runInBand
