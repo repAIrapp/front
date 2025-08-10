@@ -25,8 +25,8 @@ jobs:
     - name: Lint code
       run: npm run lint
 
-    - name: Skip tests (not configured yet)
-      run: echo "Skipping test step — not configured yet"
+    - name: Run unit tests
+      run: npm run test -- --ci --runInBand
 
     - name: Build the app
       run: npm run build
