@@ -42,24 +42,24 @@ export function SignUpForm() {
   //   }, 2000)
   // }
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  setIsLoading(true)
+    e.preventDefault()
+    setIsLoading(true)
 
-  try {
-    await signup(formData)
-  } catch (err: unknown) {
-  if (err instanceof Error) {
-    alert(err.message)
-  } else {
-    alert("Erreur lors de l’inscription")
+    try {
+      await signup(formData)
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        alert(err.message)
+      } else {
+        alert("Erreur lors de l’inscription")
+      }
+    }
+    finally {
+      setIsLoading(false)
+    }
   }
-}
-finally {
-    setIsLoading(false)
-  }
-}
 
- const { signup } = useAuth()
+  const { signup } = useAuth()
 
   return (
     <div className="space-y-6">
@@ -130,15 +130,17 @@ finally {
               size="icon"
               className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
               onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </Button>
+
           </div>
         </div>
 
         <Button
           type="submit"
-          className="w-full bg-repair-green hover:bg-repair-green/90 text-white h-11"
+          className="w-full bg-repair-green-700 hover:bg-repair-green/90 text-white h-11"
           disabled={isLoading}
         >
           {isLoading ? (
@@ -155,7 +157,7 @@ finally {
       <div className="text-center">
         <p className="text-sm text-gray-600">
           Déjà un compte RepAIr ?{" "}
-          <Link href="/auth/signin" className="text-repair-blue hover:text-repair-blue/80 font-medium">
+          <Link href="/auth/signin" className="text-repair-blue-600 hover:text-repair-blue/80 font-medium">
             Se connecter
           </Link>
         </p>

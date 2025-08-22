@@ -90,28 +90,30 @@ export function SignInForm() {
               type="button"
               variant="ghost"
               size="icon"
-              className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+              className="absolute right-0 top-0 h-full px-3 hover:bg-transparent text-black dark:text-white"
               onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </Button>
           </div>
         </div>
 
-        <Button
-          type="submit"
-          className="w-full bg-repair-blue hover:bg-repair-blue/90 text-white h-11"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            "Connexion à RepAIr..."
-          ) : (
-            <>
-              <LogIn className="w-4 h-4 mr-2" />
-              Se connecter à RepAIr
-            </>
-          )}
-        </Button>
+      <Button
+  type="submit"
+  className="w-full bg-repair-blue-600 hover:bg-repair-blue-700 text-white h-11"
+  disabled={isLoading}
+>
+  {isLoading ? (
+    "Connexion à RepAIr..."
+  ) : (
+    <>
+      <LogIn className="w-4 h-4 mr-2" />
+      Se connecter à RepAIr
+    </>
+  )}
+</Button>
+
       </form>
 
       <div className="text-center">
