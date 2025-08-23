@@ -149,11 +149,7 @@ export function IAResultsPage() {
               <div className="w-64 h-64 rounded-2xl overflow-hidden shadow-xl bg-white p-2">
                 <Image
                   src={imageError ? "/placeholder.svg" : imageUrl}
-                  alt={
-                    objet_detecte
-                      ? `Photo de l’objet analysé : ${objet_detecte}`
-                      : "Objet analysé par RepAIr"
-                  }
+                  alt="Objet analysé par RepAIr"  
                   width={300}
                   height={300}
                   className="w-full h-full object-cover rounded-xl"

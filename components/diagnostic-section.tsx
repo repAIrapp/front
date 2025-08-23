@@ -201,12 +201,17 @@ export function DiagnosticSection() {
     Analyser un autre objet
   </Button>
 
-  <Button asChild className="w-full bg-repair-blue hover:bg-repair-blue/90 text-white">
-    <Link href="/ia-results" aria-label="Voir les résultats">
-      <Zap className="h-4 w-4 mr-2" aria-hidden="true" />
-      <span>Voir les résultats</span>
-    </Link>
-  </Button>
+  <Link
+    href="/ia-results"
+    className="w-full inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 font-medium text-white bg-repair-blue hover:bg-repair-blue/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-repair-blue"
+    aria-label="Voir les résultats détaillés"
+  >
+    <svg className="h-4 w-4" aria-hidden="true" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+      <path d="M13 2v8h8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M13 10L21 2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+    <span>Voir les résultats détaillés</span>
+  </Link>
 </div>
 
                   </div>
