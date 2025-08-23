@@ -6,7 +6,7 @@ import { RootClientLayout } from "./root-client-layout"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "RepAIr - Réparez plutôt que jeter",
+  title: "RepAIr -Tes objets méritent une seconde chance.",
   description: "RepAIr vous accompagne dans la réparation de vos objets du quotidien grâce à l'intelligence artificielle",
 }
 

@@ -34,7 +34,7 @@ export function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center space-x-2">
           <Image src="/logo-repair.png" alt="RepAIr Logo" width={40} height={40} className="h-10 w-10" />
-          <span className="text-2xl font-bold text-repair-green">RepAIr</span>
+          <span className="text-2xl font-bold text-repair-green-600">RepAIr</span>
         </div>
 
         <nav className="hidden md:flex items-center space-x-6">

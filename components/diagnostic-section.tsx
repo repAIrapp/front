@@ -97,8 +97,7 @@ export function DiagnosticSection() {
             Diagnostic <span className="text-repair-green">RepAIr</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Photographiez votre objet défaillant et laissez RepAIr identifier le problème grâce à l'intelligence
-            artificielle
+            Prenez une photo de votre objet, RepAIr identifie le problème automatiquement.
           </p>
         </div>
 
@@ -111,7 +110,7 @@ export function DiagnosticSection() {
             {analysisStep === "capture" && (
               <Card className="border-repair-green/20">
                 <CardHeader>
-                  <CardTitle className="flex items-center text-repair-green">
+                  <CardTitle className="flex items-center text-repair-green-600">
                     <Scan className="h-5 w-5 mr-2" />
                     Prêt pour l'analyse RepAIr
                   </CardTitle>
