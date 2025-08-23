@@ -181,7 +181,7 @@ export function DiagnosticSection() {
                     <p className="text-gray-700">
                       L’analyse est terminée ! Cliquez ci-dessous pour voir les résultats détaillés.
                     </p>
-                    <div className="flex gap-3 justify-center">
+                    {/* <div className="flex gap-3 justify-center">
                       <Button onClick={resetDiagnostic} variant="outline" className="border-gray-300 bg-transparent">
                         Analyser un autre objet
                       </Button>
@@ -191,7 +191,24 @@ export function DiagnosticSection() {
                           Voir les résultats détaillés
                         </Link>
                       </Button>
-                    </div>
+                    </div> */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+  <Button
+    onClick={resetDiagnostic}
+    variant="outline"
+    className="w-full border-gray-300 bg-transparent"
+  >
+    Analyser un autre objet
+  </Button>
+
+  <Button asChild className="w-full bg-repair-blue hover:bg-repair-blue/90 text-white">
+    <Link href="/ia-results" aria-label="Voir les résultats">
+      <Zap className="h-4 w-4 mr-2" aria-hidden="true" />
+      <span>Voir les résultats</span>
+    </Link>
+  </Button>
+</div>
+
                   </div>
                 </CardContent>
               </Card>
