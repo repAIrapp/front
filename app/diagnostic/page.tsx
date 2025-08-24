@@ -13,7 +13,7 @@ export default function RepAIrHomePage() {
       <AppSidebar />
       <SidebarInset>
         <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-          <Header />
+          {/* <Header /> */}
           <main>
             {/* <HeroSection /> */}
             <DiagnosticSection />

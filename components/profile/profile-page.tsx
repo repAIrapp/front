@@ -31,9 +31,9 @@ export function ProfilePage() {
   // }
 
   const getUserInitials = () => {
-  if (!user?.firstName || !user?.lastName) return "U"
-  return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
-}
+    if (!user?.firstName || !user?.lastName) return "U"
+    return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
+  }
 
   const handleSave = () => {
     // Ici on sauvegarderait les modifications
@@ -58,10 +58,11 @@ export function ProfilePage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center space-x-3">
             <Button variant="ghost" size="icon" asChild className="hover:bg-purple-100">
-              <Link href="/">
-                <ArrowLeft className="h-5 w-5" />
+              <Link href="/" aria-label="Retour à l’accueil">
+                <ArrowLeft className="h-5 w-5" aria-hidden="true" />
               </Link>
             </Button>
+
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Mon Profil RepAIr</h1>
               <p className="text-sm text-gray-600">Gérez votre compte et vos préférences</p>
@@ -85,7 +86,7 @@ export function ProfilePage() {
             <CardContent className="space-y-6">
               <div className="flex items-center space-x-6">
                 <Avatar className="h-20 w-20">
-                  <AvatarFallback className="bg-blue-500 text-white text-xl">{getUserInitials()}</AvatarFallback>
+                  <AvatarFallback className="bg-blue-600 text-white text-xl">{getUserInitials()}</AvatarFallback>
                 </Avatar>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">
@@ -165,7 +166,7 @@ export function ProfilePage() {
           <SubscriptionSection />
 
           {/* Section Statistiques */}
-          <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-50">
+          {/* <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-50">
             <CardHeader>
               <CardTitle className="text-xl text-gray-800">Vos statistiques RepAIr</CardTitle>
             </CardHeader>
@@ -189,7 +190,7 @@ export function ProfilePage() {
                 </div>
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
       </div>
     </div>

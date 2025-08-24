@@ -224,7 +224,7 @@ export function CameraCapture({ onImageCapture }: CameraCaptureProps) {
               <Button
                type="button"   
                 onClick={handleCameraCapture}
-                className="w-full bg-repair-green hover:bg-repair-green/90 text-white"
+                className="w-full bg-repair-green-700 hover:bg-repair-green/90 text-white"
                 disabled={isLoading}
               >
                 <Camera className="h-4 w-4 mr-2" />
@@ -235,7 +235,7 @@ export function CameraCapture({ onImageCapture }: CameraCaptureProps) {
                type="button"   
                 onClick={handleGallerySelect}
                 variant="outline"
-                className="w-full border-repair-blue text-repair-blue hover:bg-repair-blue/10"
+                className="w-full border-repair-blue-600 text-repair-blue-700 hover:bg-repair-blue/10"
                 disabled={isLoading}
               >
                 <Upload className="h-4 w-4 mr-2" />

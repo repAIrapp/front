@@ -338,7 +338,7 @@ export function DiagnosticSection() {
             Diagnostic <span className="text-repair-green">RepAIr</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Photographiez votre objet défaillant et ajoutez, si vous le souhaitez, une description pour un diagnostic encore plus précis.
+            Prenez une photo de votre objet, RepAIr identifie le problème automatiquement.
           </p>
         </div>
 

@@ -299,7 +299,7 @@ useEffect(() => {
             className={`px-6 py-2 ${
               selectedPlan === "premium"
                 ? "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
-                : "bg-green-500 hover:bg-green-600 text-white"
+                : "bg-green-700 hover:bg-green-700 text-white"
             }`}
           >
             {isLoading ? (

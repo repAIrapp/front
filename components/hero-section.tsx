@@ -9,12 +9,11 @@ export function HeroSection() {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            Réparez plutôt que de
-            <span className="text-repair-green"> jeter</span>
+           Tes objets méritent une seconde
+            <span className="text-repair-green"> chance</span> 
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            RepAIr vous accompagne dans la réparation de vos objets du quotidien grâce à l&apos;intelligence artificielle.
-            Ensemble, luttons contre le gaspillage !
+            RepAIr vous accompagne dans la réparation de vos objets du quotidien grâce à l'intelligence artificielle.
           </p>
           {/* <Button
             size="default"
@@ -32,7 +31,7 @@ export function HeroSection() {
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* <div className="grid md:grid-cols-3 gap-8">
           <Card className="border-repair-green/20 hover:border-repair-green/40 transition-colors">
             <CardContent className="p-6 text-center">
               <div className="w-12 h-12 bg-repair-green/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -68,7 +67,7 @@ export function HeroSection() {
               </p>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
       </div>
     </section>
   )
