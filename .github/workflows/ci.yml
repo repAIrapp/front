@@ -31,8 +31,14 @@ jobs:
       run: npm ls jest || true
 
 
+    # - name: Run unit tests
+    #   run: npm run test -- --ci --runInBand
     - name: Run unit tests
-      run: npm run test -- --ci --runInBand
+      run: npm run test
+      timeout-minutes: 10
+      env:
+        CI: true
+
 
     - name: Build the app
       run: npm run build

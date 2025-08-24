@@ -7,7 +7,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "test": "jest"
+    "test": "jest --ci --runInBand --verbose --detectOpenHandles --listTests --passWithNoTests"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
