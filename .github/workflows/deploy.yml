@@ -1,0 +1,29 @@
+name: CD - Prepare Front for Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-front:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name:  Install dependencies
+        run: npm ci
+
+      - name:  Build application
+        run: npm run build
+
+      - name:  Archive production build
+        run: |
+          mkdir -p dist
+          cp -r .next public package.json dist/
