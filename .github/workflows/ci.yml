@@ -1,0 +1,44 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install dependencies (with devDeps)
+      run: npm ci
+      env:
+        NODE_ENV: development
+
+    - name: Lint code
+      run: npm run lint
+
+    - name: Check jest install
+      run: npm ls jest || true
+
+
+    # - name: Run unit tests
+    #   run: npm run test -- --ci --runInBand
+    - name: Run unit tests
+      run: npm run test
+      timeout-minutes: 10
+      env:
+        CI: true
+
+
+    - name: Build the app
+      run: npm run build

@@ -37,7 +37,7 @@ export function AuthGuard({ children }: AuthGuardProps) {
             </div>
             <div className="flex items-center justify-center space-x-2">
               <Loader2 className="h-5 w-5 animate-spin text-repair-blue" />
-              <span className="text-gray-600">Vérification de l'authentification...</span>
+              <span className="text-gray-600">Vérification de l&apos;authentification...</span>
             </div>
           </CardContent>
         </Card>
