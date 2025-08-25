@@ -28,13 +28,6 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
           </CardHeader>
           <CardContent className="pt-0">{children}</CardContent>
         </Card>
-
-        {/* Lien retour */}
-        {/* <div className="text-center mt-6">
-          <Link href="/" className="text-sm text-gray-500 hover:text-repair-green transition-colors">
-            ← Retour à RepAIr
-          </Link>
-        </div> */}
       </div>
     </div>
   )

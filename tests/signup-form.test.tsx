@@ -24,7 +24,6 @@ describe('SignUpForm', () => {
     render(<SignUpForm />)
 
     // Remplir le formulaire
-// Remplir le formulaire (utilise les placeholders, uniques)
 fireEvent.change(screen.getByPlaceholderText('Votre prénom'), { target: { value: 'Alice' } })
 fireEvent.change(screen.getByPlaceholderText('Votre nom'),    { target: { value: 'Doe' } })
 fireEvent.change(screen.getByPlaceholderText('votre@email.com'), { target: { value: 'alice@test.com' } })

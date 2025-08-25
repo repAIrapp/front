@@ -15,12 +15,6 @@ export function HeroSection() {
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
             RepAIr vous accompagne dans la réparation de vos objets du quotidien grâce à l&apos;intelligence artificielle.
           </p>
-          {/* <Button
-            size="default"
-            className="bg-repair-blue hover:bg-repair-blue/90 text-white px-4 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base md:px-6 md:py-3 md:text-lg"
-          >
-            Commencer ma réparation RepAIr
-          </Button> */}
           <Link href="/diagnostic" passHref>
             <Button
               size="default"

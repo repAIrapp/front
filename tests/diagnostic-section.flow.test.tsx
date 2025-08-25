@@ -2,7 +2,7 @@ import React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import { DiagnosticSection } from "../components/diagnostic-section"
 
-// 1) Mocks pour éviter les warnings/erreurs Next & JSDOM
+// Mocks pour éviter les warnings/erreurs Next & JSDOM
 jest.mock("next/link", () => {
   const React = require("react")
   return ({ href, children, ...props }: any) =>
@@ -16,7 +16,7 @@ class MockIntersectionObserver {
 }
 ;(window as any).IntersectionObserver = MockIntersectionObserver as any
 
-// 2) Mock CameraCapture : déclenche onImageCapture dans un useEffect (=> plus de warning act)
+// Mock CameraCapture : déclenche onImageCapture dans un useEffect (=> plus de warning act)
 jest.mock("../components/camera-capture", () => ({
   CameraCapture: ({ onImageCapture }: { onImageCapture: (url: string, file: File) => void }) => {
     React.useEffect(() => {
@@ -29,7 +29,7 @@ jest.mock("../components/camera-capture", () => ({
   },
 }))
 
-// 3) localStorage + token/user requis par le composant
+//  localStorage + token/user requis par le composant
 beforeEach(() => {
   const store: Record<string, string> = {}
   Object.defineProperty(window, "localStorage", {
@@ -48,7 +48,7 @@ beforeEach(() => {
   window.localStorage.setItem("repair_user", JSON.stringify({ id: "user123" }))
 })
 
-// 4) Mock fetch sans utiliser new Response (qui n'existe pas en JSDOM)
+// Mock fetch sans utiliser new Response (qui n'existe pas en JSDOM)
 beforeEach(() => {
   global.fetch = jest.fn(async (input: RequestInfo, init?: RequestInit) => {
     const url = typeof input === "string" ? input : String(input)
@@ -91,8 +91,6 @@ afterEach(() => {
   // Puis l’état "results"
   await screen.findByText(/Diagnostic RepAIr terminé/i)
 
-  // --- CHANGEMENT ICI : on cible par texte + on remonte à l'ancre
- // --- cibler l'ancre même si le texte existe aussi dans un <p>
 const allMatches = await screen.findAllByText(/Voir les résultats détaillés/i)
 // cherche l'élément <a> ou son parent <a>
 const link =

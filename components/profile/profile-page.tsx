@@ -164,33 +164,6 @@ export function ProfilePage() {
 
           {/* Section Abonnement */}
           <SubscriptionSection />
-
-          {/* Section Statistiques */}
-          {/* <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-50">
-            <CardHeader>
-              <CardTitle className="text-xl text-gray-800">Vos statistiques RepAIr</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">12</div>
-                  <div className="text-sm text-gray-600">Diagnostics effectués</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">8</div>
-                  <div className="text-sm text-gray-600">Réparations réussies</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">24h</div>
-                  <div className="text-sm text-gray-600">Temps économisé</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-pink-600">156€</div>
-                  <div className="text-sm text-gray-600">Argent économisé</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card> */}
         </div>
       </div>
     </div>

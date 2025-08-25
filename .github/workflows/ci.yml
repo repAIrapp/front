@@ -30,9 +30,6 @@ jobs:
     - name: Check jest install
       run: npm ls jest || true
 
-
-    # - name: Run unit tests
-    #   run: npm run test -- --ci --runInBand
     - name: Run unit tests
       run: npm run test
       timeout-minutes: 10
