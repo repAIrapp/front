@@ -35,6 +35,7 @@ interface SignupData {
   lastName: string
   email: string
   password: string
+  confirmPassword: string  
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -122,45 +123,92 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
  
+  // const signup = async (userData: SignupData) => {
+  //   setIsLoading(true)
+  //   try {
+  //     const response = await fetch("http://localhost:3001/api/auth/signup", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         email: userData.email,
+  //         password: userData.password,
+  //         first_name: userData.firstName,
+  //         last_name: userData.lastName,
+  //         authType: "local",
+  //       }),
+  //     })
+
+  //     const data = await response.json()
+  //     if (!response.ok) throw new Error(data.error || "Erreur d'inscription")
+
+  //     const token = data.token
+  //     const userPayload = JSON.parse(atob(token.split(".")[1]))
+
+  //     const user: User = {
+  //       id: userPayload.id,
+  //       email: userPayload.email,
+  //       firstName: userPayload.first_name,
+  //       lastName: userPayload.last_name,
+  //     }
+
+  //     localStorage.setItem("repair_token", token)
+  //     localStorage.setItem("repair_user", JSON.stringify(user))
+  //     setUser(user)
+
+  //     router.push("/auth/signin")
+  //   } catch (error: any) {
+  //     throw new Error(error.message || "Erreur lors de la création du compte")
+  //   } finally {
+  //     setIsLoading(false)
+  //   }
+  // }
+
   const signup = async (userData: SignupData) => {
-    setIsLoading(true)
-    try {
-      const response = await fetch("http://localhost:3001/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: userData.email,
-          password: userData.password,
-          first_name: userData.firstName,
-          last_name: userData.lastName,
-          authType: "local",
-        }),
-      })
+  setIsLoading(true)
+  try {
+    const res = await fetch("http://localhost:3001/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: userData.email.trim(),
+        password: userData.password,
+        confirmPassword: userData.confirmPassword, // ⬅️ IMPORTANT
+        first_name: userData.firstName.trim(),     // map vers snake_case attendu par l’API
+        last_name: userData.lastName.trim(),
+        authType: "local",
+      }),
+    })
 
-      const data = await response.json()
-      if (!response.ok) throw new Error(data.error || "Erreur d'inscription")
-
-      const token = data.token
-      const userPayload = JSON.parse(atob(token.split(".")[1]))
-
-      const user: User = {
-        id: userPayload.id,
-        email: userPayload.email,
-        firstName: userPayload.first_name,
-        lastName: userPayload.last_name,
-      }
-
-      localStorage.setItem("repair_token", token)
-      localStorage.setItem("repair_user", JSON.stringify(user))
-      setUser(user)
-
-      router.push("/auth/signin")
-    } catch (error: any) {
-      throw new Error(error.message || "Erreur lors de la création du compte")
-    } finally {
-      setIsLoading(false)
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) {
+      const msg =
+        data?.error ??
+        (Array.isArray(data?.errors) ? data.errors.map((e: any) => e.msg).join("\n") : "Erreur d'inscription")
+      throw new Error(msg)
     }
+
+    const token = data.token
+    const payload = JSON.parse(atob(token.split(".")[1]))
+
+    const user: User = {
+      id: payload.id,
+      email: payload.email,
+      firstName: payload.first_name,
+      lastName: payload.last_name,
+    }
+
+    localStorage.setItem("repair_token", token)
+    localStorage.setItem("repair_user", JSON.stringify(user))
+    setUser(user)
+
+    router.push("/auth/signin")
+  } catch (error: any) {
+    throw new Error(error.message || "Erreur lors de la création du compte")
+  } finally {
+    setIsLoading(false)
   }
+}
+
 
   const logout = () => {
     localStorage.removeItem("repair_token")
