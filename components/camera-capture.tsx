@@ -30,7 +30,6 @@ export function CameraCapture({ onImageCapture }: CameraCaptureProps) {
         setCapturedImage(imageUrl)
         setSelectedFile(file)
         setIsLoading(false)
-        // ⚠️ NE PAS lancer onImageCapture ici (on attend la confirmation)
       }
       reader.readAsDataURL(file)
     }

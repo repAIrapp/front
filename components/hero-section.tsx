@@ -24,44 +24,6 @@ export function HeroSection() {
             </Button>
           </Link>
         </div>
-
-        {/* <div className="grid md:grid-cols-3 gap-8">
-          <Card className="border-repair-green/20 hover:border-repair-green/40 transition-colors">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-repair-green/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Wrench className="h-6 w-6 text-repair-green" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Réparation guidée</h3>
-              <p className="text-gray-600">
-                RepAIr analyse votre problème et vous guide étape par étape dans la réparation
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-repair-blue/20 hover:border-repair-blue/40 transition-colors">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-repair-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Recycle className="h-6 w-6 text-repair-blue" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Impact écologique</h3>
-              <p className="text-gray-600">
-                Chaque réparation RepAIr contribue à réduire les déchets et préserver notre planète
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-repair-green/20 hover:border-repair-green/40 transition-colors">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-repair-green/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-6 w-6 text-repair-green" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Accessible à tous</h3>
-              <p className="text-gray-600">
-                RepAIr rend la réparation accessible, même sans compétences techniques préalables
-              </p>
-            </CardContent>
-          </Card>
-        </div> */}
       </div>
     </section>
   )

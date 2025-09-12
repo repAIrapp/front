@@ -19,11 +19,6 @@ import { LogOut, User, Crown,History } from "lucide-react"
 
 export function Header() {
   const { user, logout, isAuthenticated } = useAuth()
-
-  // const getUserInitials = () => {
-  //   if (!user) return "U"
-  //   return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
-  // }
   const getUserInitials = () => {
     if (!user || !user.firstName || !user.lastName) return "U"
     return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
@@ -50,9 +45,6 @@ export function Header() {
           >
             Comment ça marche
           </a>
-          {/* <a href="#impact" className="text-sm font-medium text-gray-700 hover:text-repair-green transition-colors">
-            Impact
-          </a> */}
         </nav>
         <div className="flex items-center space-x-4">
           {isAuthenticated && user ? (
