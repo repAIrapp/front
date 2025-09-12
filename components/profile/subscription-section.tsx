@@ -43,18 +43,27 @@ export function SubscriptionSection() {
   const { user } = useAuth()
   const { toast } = useToast()
   // const [selectedPlan, setSelectedPlan] = useState<PlanType>("basic")
-  const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null)
+//   const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null)
 
+// useEffect(() => {
+//   if (user?.subscription?.type) {
+//     setSelectedPlan(user.subscription.type)
+//   }
+// }, [user])
+  const currentPlan: PlanType = (user?.subscription?.type as PlanType) || "basic";
+const [selectedPlan, setSelectedPlan] = useState<PlanType>(currentPlan);
+  const isPremiumActive = user?.subscription?.type === "premium" && user?.subscription?.status === "active";
 useEffect(() => {
-  if (user?.subscription?.type) {
-    setSelectedPlan(user.subscription.type)
-  }
-}, [user])
+  setSelectedPlan(currentPlan);
+}, [currentPlan]);
+
 
   const [isLoading, setIsLoading] = useState(false)
 
   // const currentPlan: PlanType = "basic" 
-  const currentPlan: PlanType = user?.subscription?.type || "basic"
+  // const currentPlan: PlanType = user?.subscription?.type || "basic"
+
+
 
   const plans: SubscriptionPlan[] = [
     {
@@ -111,28 +120,50 @@ useEffect(() => {
   //     setIsLoading(false)
   //   }
   // }
-   const handleUpgrade = async () => {
-  if (selectedPlan === "basic" && currentPlan === "basic") {
-    toast({
-      title: "Plan Basic sélectionné",
-      description: "Vous êtes déjà sur le plan gratuit RepAIr",
-    })
-    return
-  }
+//    const handleUpgrade = async () => {
+//   if (selectedPlan === "basic" && currentPlan === "basic") {
+//     toast({
+//       title: "Plan Basic sélectionné",
+//       description: "Vous êtes déjà sur le plan gratuit RepAIr",
+//     })
+//     return
+//   }
 
-  setIsLoading(true)
-  try {
-    window.location.href = "/api/create-stripe-session"
-  } catch (error) {
-    console.error("Erreur de redirection paiement :", error)
-    toast({
-      title: "Erreur",
-      description: "Impossible de traiter la demande d'abonnement",
-      variant: "destructive",
-    })
-    setIsLoading(false)
+//   setIsLoading(true)
+//   try {
+//     window.location.href = "/api/create-stripe-session"
+//   } catch (error) {
+//     console.error("Erreur de redirection paiement :", error)
+//     toast({
+//       title: "Erreur",
+//       description: "Impossible de traiter la demande d'abonnement",
+//       variant: "destructive",
+//     })
+//     setIsLoading(false)
+//   }
+// }
+const handleUpgrade = async () => {
+  if (isPremiumActive) {
+    toast({ title: "Abonnement actif", description: "Vous êtes déjà sur le plan Premium." });
+    return;
   }
-}
+  if (currentPlan === "basic" && selectedPlan === "premium") {
+    setIsLoading(true);
+    try {
+      window.location.href = "/api/create-stripe-session";
+    } catch (e) {
+      toast({ title: "Erreur", description: "Impossible de traiter la demande d'abonnement", variant: "destructive" });
+      setIsLoading(false);
+    }
+    return;
+  }
+  if (currentPlan === "premium" && selectedPlan === "basic") {
+    toast({ title: "Bientôt disponible", description: "La résiliation/downgrade sera ajoutée prochainement." });
+    return;
+  }
+  toast({ title: "Plan actuel", description: "Vous êtes déjà sur ce plan." });
+};
+
 
   const handlePlanChange = (value: string) => {
   if (value === "basic" || value === "premium") {

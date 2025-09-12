@@ -68,59 +68,189 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(false)
     }
   }
-  const refreshUser = async () => {
-  const token = localStorage.getItem("repair_token")
-  const userData = localStorage.getItem("repair_user")
-  if (!token || !userData) return
+//   const refreshUser = async () => {
+//   const token = localStorage.getItem("repair_token")
+//   const userData = localStorage.getItem("repair_user")
+//   if (!token || !userData) return
 
-  const parsedUser = JSON.parse(userData)
-  const res = await fetch(`http://localhost:3001/api/users/${parsedUser.id}`, {
-    headers: { Authorization: `Bearer ${token}` }
-  })
+//   const parsedUser = JSON.parse(userData)
+//   const res = await fetch(`http://localhost:3001/api/users/${parsedUser.id}`, {
+//     headers: { Authorization: `Bearer ${token}` }
+//   })
 
-  const updatedUser = await res.json()
-  localStorage.setItem("repair_user", JSON.stringify(updatedUser))
-  setUser(updatedUser)
+//   const updatedUser = await res.json()
+//   localStorage.setItem("repair_user", JSON.stringify(updatedUser))
+//   setUser(updatedUser)
+// }
+// const refreshUser = async () => {
+//   try {
+//     // on passe par l'API interne qui normalise les champs
+//     const res = await fetch("/api/user/refresh", {
+//       method: "GET",
+//       credentials: "include", // inclut les cookies (repair_user / repair_token)
+//       cache: "no-store",
+//     });
+
+//     const data = await res.json().catch(() => ({} as any));
+//     if (!res.ok || !data?.user) {
+//       console.error("refreshUser failed:", data?.error || res.statusText);
+//       return;
+//     }
+
+//     // ⚠️ on persiste la version *normalisée* (camelCase)
+//     localStorage.setItem("repair_user", JSON.stringify(data.user));
+//     setUser(data.user);
+//   } catch (e) {
+//     console.error("refreshUser error:", e);
+//   }
+// };
+const refreshUser = async () => {
+  try {
+    const res = await fetch("/api/user/refresh", {
+      method: "GET",
+      credentials: "include",
+      cache: "no-store",
+    });
+    const data = await res.json().catch(() => ({} as any));
+    if (!res.ok || !data?.user) {
+      console.error("refreshUser failed:", data?.error || res.statusText);
+      return;
+    }
+    // on stocke la version *normalisée* (camelCase + subscription)
+    localStorage.setItem("repair_user", JSON.stringify(data.user));
+    setUser(data.user);
+  } catch (e) {
+    console.error("refreshUser error:", e);
+  }
+};
+
+
+  // const login = async (email: string, password: string) => {
+  //   setIsLoading(true)
+  //   try {
+  //     const response = await fetch("http://localhost:3001/api/auth/login", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         email,
+  //         password,
+  //         authType: "local",
+  //       }),
+  //     })
+
+  //     const data = await response.json()
+  //     if (!response.ok) throw new Error(data.error || "Erreur de connexion")
+
+  //     const token = data.token
+  //     const payload = JSON.parse(atob(token.split(".")[1]))
+
+  //     const user: User = {
+  //       id: payload.id,
+  //       email: payload.email,
+  //       firstName: payload.first_name,
+  //       lastName: payload.last_name,
+  //     }
+  //     localStorage.setItem("repair_token", token)
+  //     localStorage.setItem("repair_user", JSON.stringify(user))
+  //     setUser(user)
+
+  //     const redirectTo = localStorage.getItem("repair_redirect") || "/"
+  //     localStorage.removeItem("repair_redirect")
+  //     router.push(redirectTo)
+  //   } catch (error: any) {
+  //     throw new Error(error.message || "Erreur de connexion")
+  //   } finally {
+  //     setIsLoading(false)
+  //   }
+  // }
+// const login = async (email: string, password: string) => {
+//   setIsLoading(true);
+//   try {
+//     const response = await fetch("http://localhost:3001/api/auth/login", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ email, password, authType: "local" }),
+//     });
+//     const data = await response.json();
+//     if (!response.ok) throw new Error(data.error || "Erreur de connexion");
+
+//     const token = data.token;
+//     localStorage.setItem("repair_token", token);
+
+//     // ⬇️ récupère le profil complet (avec subscription) via la route Next
+//     await refreshUser();
+
+//     const redirectTo = localStorage.getItem("repair_redirect") || "/";
+//     localStorage.removeItem("repair_redirect");
+//     router.push(redirectTo);
+//   } catch (error: any) {
+//     throw new Error(error.message || "Erreur de connexion");
+//   } finally {
+//     setIsLoading(false);
+//   }
+// };
+// const login = async (email: string, password: string) => {
+//   setIsLoading(true)
+//   try {
+//     const response = await fetch("http://localhost:3001/api/auth/login", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ email, password, authType: "local" }),
+//     })
+
+//     const data = await response.json()
+//     if (!response.ok) throw new Error(data.error || "Erreur de connexion")
+
+//     const token = data.token
+//     localStorage.setItem("repair_token", token)
+
+//     // 🔁 Récupère le profil complet normalisé (avec subscription)
+//     await refreshUser()
+
+//     const redirectTo = localStorage.getItem("repair_redirect") || "/"
+//     localStorage.removeItem("repair_redirect")
+//     router.push(redirectTo)
+//   } catch (error: any) {
+//     throw new Error(error.message || "Erreur de connexion")
+//   } finally {
+//     setIsLoading(false)
+//   }
+// }
+
+
+const login = async (email: string, password: string) => {
+  setIsLoading(true)
+  try {
+    const response = await fetch("http://localhost:3001/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, authType: "local" }),
+    })
+    const data = await response.json()
+    if (!response.ok) throw new Error(data.error || "Erreur de connexion")
+
+    const token = data.token
+
+    // 1) enregistrer le token côté client
+    localStorage.setItem("repair_token", token)
+
+    // 2) ⬅️ poser le cookie que /api/user/refresh attend
+    //    (en dev sur http://localhost, tu peux retirer `secure` si besoin)
+    document.cookie = `repair_token=${token}; path=/; samesite=lax`
+
+    // 3) rafraîchir le profil complet normalisé (écrit repair_user)
+    await refreshUser()
+
+    const redirectTo = localStorage.getItem("repair_redirect") || "/"
+    localStorage.removeItem("repair_redirect")
+    router.push(redirectTo)
+  } catch (error: any) {
+    throw new Error(error.message || "Erreur de connexion")
+  } finally {
+    setIsLoading(false)
+  }
 }
 
-  const login = async (email: string, password: string) => {
-    setIsLoading(true)
-    try {
-      const response = await fetch("http://localhost:3001/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-          authType: "local",
-        }),
-      })
-
-      const data = await response.json()
-      if (!response.ok) throw new Error(data.error || "Erreur de connexion")
-
-      const token = data.token
-      const payload = JSON.parse(atob(token.split(".")[1]))
-
-      const user: User = {
-        id: payload.id,
-        email: payload.email,
-        firstName: payload.first_name,
-        lastName: payload.last_name,
-      }
-      localStorage.setItem("repair_token", token)
-      localStorage.setItem("repair_user", JSON.stringify(user))
-      setUser(user)
-
-      const redirectTo = localStorage.getItem("repair_redirect") || "/"
-      localStorage.removeItem("repair_redirect")
-      router.push(redirectTo)
-    } catch (error: any) {
-      throw new Error(error.message || "Erreur de connexion")
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
  
   // const signup = async (userData: SignupData) => {
@@ -210,12 +340,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 
+  // const logout = () => {
+  //   localStorage.removeItem("repair_token")
+  //   localStorage.removeItem("repair_user")
+  //   setUser(null)
+  //   router.push("/auth/signin")
+  // }
   const logout = () => {
-    localStorage.removeItem("repair_token")
-    localStorage.removeItem("repair_user")
-    setUser(null)
-    router.push("/auth/signin")
+  // Nettoyage localStorage
+  localStorage.removeItem("repair_token")
+  localStorage.removeItem("repair_user")
+
+  // Nettoyage cookies
+  const clear = (name: string) => {
+    document.cookie = `${name}=; Max-Age=0; path=/; samesite=lax`
+    document.cookie = `${name}=; Max-Age=0; path=/; samesite=lax; secure`
   }
+  clear("repair_token")
+  clear("repair_user")
+
+  setUser(null)
+  router.push("/auth/signin")
+}
+
 
   const loginWithGoogle = async () => {
     window.location.href = "http://localhost:3004/auth?intent=login";
