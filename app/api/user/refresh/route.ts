@@ -100,8 +100,8 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Non connecté" }, { status: 401 })
     }
 
-    // 2) Lire l'utilisateur coté service Users
-    const resp = await fetch(`http://localhost:3001/api/users/${userId}`, {
+    // 2) Lire l'utilisateur coté service Users  NEXT_PUBLIC_DB_API_URL
+    const resp = await fetch(`${process.env.NEXT_PUBLIC_DB_API_URL}/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
       cache: "no-store",
     })

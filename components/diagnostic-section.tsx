@@ -53,8 +53,8 @@ export function DiagnosticSection() {
       const user = JSON.parse(localStorage.getItem("repair_user") || "{}")
       if (!token || !user?.id) throw new Error("Utilisateur non authentifié")
 
-      // 1) Créer l’objet réparé (DB service)
-      const objectRes = await fetch("http://localhost:3001/api/objects", {
+      // 1) Créer l’objet réparé (DB service)    
+      const objectRes = await fetch(`${process.env.NEXT_PUBLIC_DB_API_URL}/objects`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

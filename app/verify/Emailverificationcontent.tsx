@@ -16,9 +16,9 @@ export default function EmailVerificationContent() {
         setStatus("error")
         return
       }
-
+ 
       try {
-        const res = await fetch(`http://localhost:3001/api/users/${userId}/verify-email`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_DB_API_URL}/users/${userId}/verify-email`, {
           method: "PATCH",
         })
 

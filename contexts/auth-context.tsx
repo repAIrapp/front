@@ -91,7 +91,7 @@ const refreshUser = async () => {
 const login = async (email: string, password: string) => {
   setIsLoading(true)
   try {
-    const response = await fetch("http://localhost:3001/api/auth/login", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_DB_API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, authType: "local" }),
@@ -122,8 +122,8 @@ const login = async (email: string, password: string) => {
 }
   const signup = async (userData: SignupData) => {
   setIsLoading(true)
-  try {
-    const res = await fetch("http://localhost:3001/api/auth/signup", {
+  try {       
+    const res = await fetch(`${process.env.NEXT_PUBLIC_DB_API_URL}/auth/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -183,13 +183,17 @@ const login = async (email: string, password: string) => {
   router.push("/auth/signin")
 }
 
+   const OAUTH_URL=process.env.NEXT_PUBLIC_OAUTH_URL;
 
   const loginWithGoogle = async () => {
-    window.location.href = "http://localhost:3004/auth?intent=login";
+    window.location.href = `${OAUTH_URL}/auth?intent=login`;
+    //window.location.href = "http://localhost:3004/auth?intent=login";
   };
 
+//http://localhost:3004/auth?intent=login
   const signupWithGoogle = async () => {
-    window.location.href = "http://localhost:3004/auth?intent=signup";
+    window.location.href = `${OAUTH_URL}/auth?intent=signup`;
+   // window.location.href = "http://localhost:3004/auth?intent=signup"
   };
 
   const loginWithFacebook = async () => {

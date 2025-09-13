@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     const headers: Record<string, string> = { "Content-Type": "application/json" }
     if (token) headers.Authorization = `Bearer ${token}`
 
-    const res = await fetch("http://localhost:3003/api/payments/create-session", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_PAYMENT_URL}/create-session`, {
       method: "POST",
       headers,
       body: JSON.stringify({ email: user.email, userId }), 
