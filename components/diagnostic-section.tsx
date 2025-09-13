@@ -79,8 +79,8 @@ export function DiagnosticSection() {
         formData.append("description", description.trim())
       }
 
-      // 3) Appel IA
-      const response = await fetch("http://localhost:3002/analyze/full", {
+      // 3) Appel IA    http://localhost:3002/analyze/ful
+      const response = await fetch(`${process.env.NEXT_PUBLIC_AI_URL}/analyze/full` , {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
